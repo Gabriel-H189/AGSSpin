@@ -57,6 +57,7 @@ def spin_in_bg():
     random.seed()
     print("INFO: seeded successfully")
     name = random.sample(names, number_of_names)
+    name = "".join(name)
     
     print("INFO: name chosen!")
     print(f"DEBUG: waiting for {spin_time} seconds")
@@ -65,7 +66,7 @@ def spin_in_bg():
     
     print("INFO: We have a winner!")
     winsound.PlaySound("win.wav", winsound.SND_ASYNC)
-    msg.showinfo(title="We have a winner!", message=f"The winner is {name}")
+    msg.showinfo(title="We have a winner!", message=f"The winner is {name!s}")
     
     print(f"DEBUG: The winner is {name}")
     root1.destroy()
