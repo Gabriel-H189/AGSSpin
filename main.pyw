@@ -54,10 +54,10 @@ def spin_in_bg():
     print(f"DEBUG: spin_time = {spin_time}")
 
     # Seed and choose winner (s)
-    random.seed()
+    random.seed(random.randint(1, round(time.time())))
     print("INFO: seeded successfully")
-    name = random.sample(names, number_of_names)
-    name = "".join(name)
+    name_list = random.sample(names, number_of_names)
+    name = ", ".join(name_list)
     
     print("INFO: name chosen!")
     print(f"DEBUG: waiting for {spin_time} seconds")
@@ -69,6 +69,11 @@ def spin_in_bg():
     msg.showinfo(title="We have a winner!", message=f"The winner is {name!s}")
     
     print(f"DEBUG: The winner is {name}")
+    sure = msg.askyesno(title="Remove?", message="Remove winners?")
+    print(f"DEBUG: name_list = {name_list}")
+    if sure:
+        for name_to_remove in name_list:
+            names.remove(name_to_remove)
     root1.destroy()
 
 
