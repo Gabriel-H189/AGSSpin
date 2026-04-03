@@ -7,6 +7,7 @@ import random
 import threading
 import time
 import winsound
+from PIL import Image
 
 print("INIT: program started")
 names = []
@@ -33,8 +34,36 @@ def spin_in_bg():
     root1 = tk.Toplevel()
     root1.title("spinning wheel...")
     root1.attributes("-topmost", 1)
-    wheel = tk.PhotoImage(file="wheel.png")
-    tk.Label(root1, image=wheel, width=300, height=300).pack()
+    # wheel = tk.PhotoImage(file="wheel.png")
+    # tk.Label(root1, image=wheel, width=300, height=300).pack()
+    wheel_path = "wheel_anim.gif"
+    wheel = Image.open(wheel_path)
+    frames = wheel.n_frames
+    
+    gif_label = tk.Label(root1, image="")
+    gif_label.pack()
+    
+    photoimage_objects = []
+    for i in range(frames):
+        obj = tk.PhotoImage(file=wheel_path, format=f"gif -index {i}")
+        photoimage_objects.append(obj)
+        
+    def animation(current_frame=0):
+        global loop
+        image = photoimage_objects[current_frame]
+
+        gif_label.configure(image=image)
+        current_frame += 1
+
+        if current_frame == frames:
+            current_frame = 0
+
+        loop = root.after(50, lambda: animation(current_frame))
+
+
+    def stop_animation():
+        root.after_cancel(loop)
+        
     print("INFO: spinning wheel...")
     
     def spin_sound():
@@ -65,7 +94,9 @@ def spin_in_bg():
     print("INFO: name chosen!")
     print(f"DEBUG: waiting for {spin_time} seconds")
     spin_sound()
+    animation()
     time.sleep(spin_time)
+    stop_animation()
     notify_label.config(text="We have a winner!")
     
     print("INFO: We have a winner!")
@@ -126,7 +157,7 @@ btn2 = tk.Button(root, text="Spin!", command=spin)
 btn2.pack()
 print("INIT: spin button created")
 
-about = tk.Button(root, text="i", command= lambda: msg.showinfo(title="About", message="Program made by Gabriel"))
+about = tk.Button(root, text="i", command= lambda: msg.showinfo(title="About", message="Program made by Gabriel Alonso-Holt"))
 about.place(x=275, y=265)
 print("INIT: about button created")
 
