@@ -99,6 +99,7 @@ def spin_in_bg():
     print("INFO: playing animation")
     time.sleep(spin_time)
     stop_animation()
+    root1.title("We have a winner!")
     notify_label.config(text="We have a winner!")
     
     print("INFO: We have a winner!")
