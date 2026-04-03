@@ -33,15 +33,16 @@ def spin_in_bg():
     root1 = tk.Toplevel()
     root1.title("spinning wheel...")
     root1.attributes("-topmost", 1)
-    # wheel = tk.PhotoImage(file="wheel.png")
-    # tk.Label(root1, image=wheel, width=300, height=300).pack()
+    wheel_image = tk.PhotoImage(file="wheel.png")
+    gif_label = tk.Label(root1, image=wheel_image)
+    gif_label.pack()
+    
     wheel_path = "wheel_anim.gif"
     wheel = Image.open(wheel_path)
     frames = wheel.n_frames
     
-    gif_label = tk.Label(root1, image="")
-    gif_label.pack()
-    
+    gif_label.config(image="")
+        
     photoimage_objects = []
     for i in range(frames):
         obj = tk.PhotoImage(file=wheel_path, format=f"gif -index {i}")
