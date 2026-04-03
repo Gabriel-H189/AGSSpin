@@ -9,6 +9,8 @@ Winner sound effect by: https://safesearch.pixabay.com/users/freesound_community
 
 Wheel image by: https://pngtree.com/so/picmix-graphics-spin-wheel
 
+Spin sound effect by: https://safesearch.pixabay.com/users/freesound_community-46691455/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=101152
+
 ### Building from source
 1. Clone the repository:
 ```
