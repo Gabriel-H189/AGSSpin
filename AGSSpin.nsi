@@ -8,6 +8,8 @@ SetOutPath $INSTDIR
 File AGSSpin.exe
 File win.wav
 File wheel.png
+File spin.wav
+File wheel_anim.gif
 
 CreateShortcut "$SMPROGRAMS\AGS Spin The Wheel.lnk" "$INSTDIR\AGSSpin.exe"
 WriteUninstaller $INSTDIR\uninstall.exe
