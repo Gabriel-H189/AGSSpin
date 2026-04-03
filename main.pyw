@@ -1,4 +1,4 @@
-# challenge.py
+# main.pyw
 # -*- coding: utf-8 -*-
 import tkinter as tk
 import tkinter.filedialog as fd
@@ -15,7 +15,7 @@ names = []
 
 def load_names():
     global names
-    filename = fd.askopenfilename(title="Open", filetypes=(("Text files", "*.txt"), ("All files", "*.*")))
+    filename = fd.askopenfilename(title="Open", defaultextension=".txt", filetypes=(("Text files", "*.txt"), ("All files", "*.*")))
     print("INFO: file dialog launched")
     file_label.config(text=f"File: {filename}")
     print(f"DEBUG: filename = {filename}")
@@ -27,7 +27,6 @@ def load_names():
         print(f"DEBUG: {names}")
 
 
-# TODO: actual spin logic
 def spin_in_bg():
     global names
     notify_label.config(text="spinning wheel...")
@@ -94,7 +93,9 @@ def spin_in_bg():
     print("INFO: name chosen!")
     print(f"DEBUG: waiting for {spin_time} seconds")
     spin_sound()
+    print("INFO: playing sound")
     animation()
+    print("INFO: playing animation")
     time.sleep(spin_time)
     stop_animation()
     notify_label.config(text="We have a winner!")
