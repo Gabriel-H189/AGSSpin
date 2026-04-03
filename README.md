@@ -31,11 +31,15 @@ python -m venv .venv
 ```
 pip install pyinstaller
 ```
-6. Run the build command:
+6. Install requirements:
+```
+pip install -r requirements.txt
+```
+8. Run the build command:
 ```
 pyinstaller main.pyw --onefile --add-data=wheel.png:wheel.png --add-data=win.wav:win.wav -n AGSSpin
 ```
-7. Run:
+8. Run:
 ```
 dist\AGSSpin.exe
 ```
