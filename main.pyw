@@ -36,6 +36,9 @@ def spin_in_bg():
     wheel = tk.PhotoImage(file="wheel.png")
     tk.Label(root1, image=wheel, width=300, height=300).pack()
     print("INFO: spinning wheel...")
+    
+    def spin_sound():
+        threading.Thread(target=lambda: winsound.PlaySound("spin.wav", winsound.SND_ASYNC)).start()
 
     # Get number of names and convert to int - default 1
     number_of_names = names_entry.get()
@@ -61,6 +64,7 @@ def spin_in_bg():
     
     print("INFO: name chosen!")
     print(f"DEBUG: waiting for {spin_time} seconds")
+    spin_sound()
     time.sleep(spin_time)
     notify_label.config(text="We have a winner!")
     
