@@ -39,7 +39,7 @@ def spin_in_bg():
     
     wheel_path = "wheel_anim.gif"
     wheel = Image.open(wheel_path)
-    frames = wheel.n_frames
+    frames = wheel.n_frames # type: ignore
     
     gif_label.config(image="")
         
