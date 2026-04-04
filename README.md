@@ -35,9 +35,9 @@ pip install pyinstaller
 ```
 pip install -r requirements.txt
 ```
-8. Run the build command:
+7. Run the build command:
 ```
-pyinstaller main.pyw --onefile --add-data=wheel.png:wheel.png --add-data=win.wav:win.wav -n AGSSpin
+pyinstaller main.pyw --onefile --add-data=wheel.png:wheel.png --add-data=win.wav:win.wav --add-data=spin.wav:spin.wav --add-data=wheel_anim.gif:wheel_anim.gif -n AGSSpin
 ```
 8. Run:
 ```
