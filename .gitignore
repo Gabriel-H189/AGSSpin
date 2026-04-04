@@ -5,3 +5,5 @@ dist
 .venv
 .vscode
 *.code-workspace
+tests
+__pycache__
