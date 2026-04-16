@@ -1,0 +1,3 @@
+Please read carefully:
+
+This program is only intended for use inside AGS. If you are not from my school, please quit this installer and remove all files relating to this program. Attempts to rig the random number generator (RNG) will be punished accordingly.
