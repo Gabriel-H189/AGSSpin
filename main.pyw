@@ -21,7 +21,7 @@ def load_names() -> None:
     print(f"DEBUG: filename = {filename!s}")
 
     # Read filenames from text file and remove \n
-    with open(filename, "r") as file:
+    with open(file=filename, mode="r") as file:
         names = [line.rstrip("\n") for line in file.readlines()]
         print("INFO: file loaded!")
         print(f"DEBUG: {names!s}")
@@ -30,11 +30,14 @@ def load_names() -> None:
 def spin_in_bg() -> None:
     global names
     notify_label.config(text="spinning wheel...")
-    root1: Toplevel = Toplevel()
-    root1.title("spinning wheel...")
-    root1.attributes("-topmost", 1)
+    
+    root_1: Toplevel = Toplevel(master=root)
+    root_1.title("spinning wheel...")
+    root_1.attributes("-topmost", 1)
+    
     wheel_image: PhotoImage = PhotoImage(file=r"wheel.png")
-    gif_label: Label = Label(master=root1, image=wheel_image)
+    
+    gif_label: Label = Label(master=root_1, image=wheel_image)
     gif_label.pack()
     
     wheel_path: str = r"wheel_anim.gif"
@@ -43,14 +46,14 @@ def spin_in_bg() -> None:
     
     gif_label.config(image="")
         
-    photoimage_objects = []
-    for i in range(frames):
+    photoimage_objects: list[PhotoImage] = []
+    for i in range(0, frames):
         obj: PhotoImage = PhotoImage(file=wheel_path, format=f"gif -index {i}")
         photoimage_objects.append(obj)
         
     def animation(current_frame: int=0) -> None:
         global loop
-        image = photoimage_objects[current_frame]
+        image: PhotoImage = photoimage_objects[current_frame]
 
         gif_label.configure(image=image)
         current_frame += 1
@@ -95,15 +98,17 @@ def spin_in_bg() -> None:
     print(f"DEBUG: waiting for {spin_time:,} seconds")
     spin_sound()
     print("INFO: playing sound")
+    
     animation()
     print("INFO: playing animation")
     sleep(spin_time)
     stop_animation()
-    root1.title("We have a winner!")
+    
+    root_1.title("We have a winner!")
     notify_label.config(text="We have a winner!")
     
     print("INFO: We have a winner!")
-    PlaySound("win.wav", SND_ASYNC)
+    PlaySound(r"win.wav", SND_ASYNC)
     showinfo(title="We have a winner!", message=f"The winner is {name!s}")
     
     print(f"DEBUG: The winner is {name!s}")
@@ -112,7 +117,7 @@ def spin_in_bg() -> None:
     if sure:
         for name_to_remove in name_list:
             names.remove(name_to_remove)
-    root1.destroy()
+    root_1.destroy()
 
 
 def spin() -> None:
@@ -140,14 +145,18 @@ button: Button = Button(master=root, text="Load names from file", command=load_n
 button.pack(pady=5)
 print("INIT: load button created")
 
-Label(master=root, text="Enter number of names: ").pack()
-print("INIT: label created")
+number_names_label: Label = Label(master=root, text="Enter number of names: ")
+number_names_label.pack()
+print("INIT: number of names label created")
+
 names_entry: Entry = Entry(master=root)
 names_entry.pack()
 print("INIT: names entry created")
 
-Label(master=root, text="Spin time (seconds): ").pack(pady=2)
+spin_time_label: Label = Label(master=root, text="Spin time (seconds): ")
+spin_time_label.pack(pady=2)
 print("INIT: spin time label created")
+
 time_entry: Entry = Entry(master=root)
 time_entry.pack()
 print("INIT: time entry created")
