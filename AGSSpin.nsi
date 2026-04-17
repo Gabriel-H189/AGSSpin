@@ -7,6 +7,7 @@ BrandingText "Gabriel Alonso-Holt"
 
 !define MUI_HEADERIMAGE_BITMAP "header.bmp"
 !define MUI_WELCOMEFINISHPAGE_BITMAP "wizard.bmp"
+!define MUI_ICON "setup.ico"
 
 !define MUI_WELCOMEPAGE_TEXT "Setup will guide you through the installation process of AGS Spin The Wheel.\n\nYou should close all other application before continuing.\n\nClick Next to continue and Cancel to exit the Setup Wizard."
 
