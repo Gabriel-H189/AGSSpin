@@ -21,26 +21,27 @@ BrandingText "Gabriel Alonso-Holt"
 
 Section ""
 
-SetOutPath $INSTDIR
-File AGSSpin.exe
-File win.wav
-File wheel.png
-File spin.wav
-File wheel_anim.gif
+    SetOutPath $INSTDIR
+    File AGSSpin.exe
+    File win.wav
+    File wheel.png
+    File spin.wav
+    File wheel_anim.gif
 
-CreateShortcut "$SMPROGRAMS\AGS Spin The Wheel.lnk" "$INSTDIR\AGSSpin.exe"
-WriteUninstaller $INSTDIR\uninstall.exe
+    CreateShortcut "$SMPROGRAMS\AGS Spin The Wheel.lnk" "$INSTDIR\AGSSpin.exe"
+    WriteUninstaller $INSTDIR\uninstall.exe
 
-MessageBox MB_OK "AGS Spin The Wheel has successfully been installed"
+    MessageBox MB_OK "AGS Spin The Wheel has successfully been installed"
 
 SectionEnd
 
 Section "Uninstall"
-Delete $INSTDIR\AGSSpin.exe
-Delete $INSTDIR\win.wav
-Delete $INSTDIR\wheel.png
-Delete $INSTDIR\uninstall.exe
 
-RMDir $INSTDIR
+    Delete $INSTDIR\AGSSpin.exe
+    Delete $INSTDIR\win.wav
+    Delete $INSTDIR\wheel.png
+    Delete $INSTDIR\uninstall.exe
+
+    RMDir $INSTDIR
 
 SectionEnd
