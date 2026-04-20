@@ -57,9 +57,11 @@ Section "Uninstall"
 
     DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\AGSSpin"
 
-    Delete $INSTDIR\AGSSpin.exe
     Delete $INSTDIR\win.wav
     Delete $INSTDIR\wheel.png
+    Delete $INSTDIR\wheel_anim.gif
+    Delete $INSTDIR\spin.wav
+    Delete $INSTDIR\AGSSpin.exe
     Delete $INSTDIR\uninstall.exe
 
     RMDir $INSTDIR
