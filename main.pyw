@@ -1,3 +1,6 @@
+"""AGSSpin: A spinning wheel written in Python for my school.
+By Gabriel Alonso-Holt.
+"""
 # main.pyw
 # -*- coding: utf-8 -*-
 from tkinter import Tk, Button, Label, Entry, Toplevel, PhotoImage
@@ -9,48 +12,55 @@ from time import sleep, time
 from winsound import PlaySound, SND_ASYNC
 from PIL import Image
 
+
 print("INIT: program started")
 names: list[str] = []
 
 
 def load_names() -> None:
+    """Open and parse the text file of names."""
     global names
-    filename: str = askopenfilename(title="Open", defaultextension=".txt", filetypes=(("Text files", "*.txt"), ("All files", "*.*")))
+    filename: str = askopenfilename(
+        title="Open", 
+        defaultextension=".txt", 
+        filetypes=(("Text files", "*.txt"), ("All files", "*.*"))
+    )
     print("INFO: file dialog launched")
     file_label.config(text=f"File: {filename!s}")
     print(f"DEBUG: filename = {filename!s}")
 
     # Read filenames from text file and remove \n
-    with open(file=filename, mode="r") as file:
+    with open(file=filename, mode="r", encoding="utf-8") as file:
         names = [line.rstrip("\n") for line in file.readlines()]
         print("INFO: file loaded!")
         print(f"DEBUG: {names!s}")
 
 
 def spin_in_bg() -> None:
+    """Perfom the wheel spinning operation in the background."""
     global names
     notify_label.config(text="spinning wheel...")
-    
+
     root_1: Toplevel = Toplevel(master=root)
     root_1.title("spinning wheel...")
     root_1.attributes("-topmost", 1)
-    
+
     wheel_image: PhotoImage = PhotoImage(file=r"wheel.png")
-    
+
     gif_label: Label = Label(master=root_1, image=wheel_image)
     gif_label.pack()
-    
+
     wheel_path: str = r"wheel_anim.gif"
     wheel = Image.open(wheel_path)
     frames = wheel.n_frames # type: ignore
-    
+
     gif_label.config(image="")
-        
+
     photoimage_objects: list[PhotoImage] = []
     for i in range(0, frames):
         obj: PhotoImage = PhotoImage(file=wheel_path, format=f"gif -index {i}")
         photoimage_objects.append(obj)
-        
+
     def animation(current_frame: int=0) -> None:
         global loop
         image: PhotoImage = photoimage_objects[current_frame]
@@ -66,9 +76,9 @@ def spin_in_bg() -> None:
 
     def stop_animation() -> None:
         root.after_cancel(loop)
-        
+
     print("INFO: spinning wheel...")
-    
+
     def spin_sound() -> None:
         Thread(target=lambda: PlaySound(r"spin.wav", SND_ASYNC)).start()
 
@@ -93,24 +103,24 @@ def spin_in_bg() -> None:
     print("INFO: seeded successfully")
     name_list: list[str] = sample(names, number_of_names)
     name: str = ", ".join(name_list)
-    
+
     print("INFO: name chosen!")
     print(f"DEBUG: waiting for {spin_time:,} seconds")
     spin_sound()
     print("INFO: playing sound")
-    
+
     animation()
     print("INFO: playing animation")
     sleep(spin_time)
     stop_animation()
-    
+
     root_1.title("We have a winner!")
     notify_label.config(text="We have a winner!")
-    
+
     print("INFO: We have a winner!")
     PlaySound(r"win.wav", SND_ASYNC)
     showinfo(title="We have a winner!", message=f"The winner is {name!s}")
-    
+
     print(f"DEBUG: The winner is {name!s}")
     sure: bool = askyesno(title="Remove?", message="Remove winners?")
     print(f"DEBUG: name_list = {name_list!s}")
@@ -121,6 +131,7 @@ def spin_in_bg() -> None:
 
 
 def spin() -> None:
+    """Start `spin_in_bg()`"""
     # Use a thread to prevent freezing
     thread: Thread = Thread(target=spin_in_bg)
     print("INFO: thread started")
@@ -169,7 +180,11 @@ btn2: Button = Button(master=root, text="Spin!", command=spin)
 btn2.pack()
 print("INIT: spin button created")
 
-about: Button = Button(master=root, text="i", command= lambda: showinfo(title="About", message="Program made by Gabriel Alonso-Holt"))
+about: Button = Button(
+    master=root,
+    text="i",
+    command= lambda: showinfo(title="About", message="Program made by Gabriel Alonso-Holt")
+)
 about.place(x=275, y=265)
 print("INIT: about button created")
 
