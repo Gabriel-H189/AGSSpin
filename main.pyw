@@ -1,6 +1,7 @@
 """AGSSpin: A spinning wheel written in Python for my school.
 By Gabriel Alonso-Holt.
 """
+
 # main.pyw
 # -*- coding: utf-8 -*-
 from tkinter import Tk, Button, Label, Entry, Toplevel, PhotoImage
@@ -9,9 +10,9 @@ from tkinter.messagebox import askyesno, showinfo
 from random import randint, sample, seed
 from threading import Thread
 from time import sleep, time
+from webbrowser import open_new
 from winsound import PlaySound, SND_ASYNC
 from PIL import Image
-
 
 print("INIT: program started")
 names: list[str] = []
@@ -21,9 +22,9 @@ def load_names() -> None:
     """Open and parse the text file of names."""
     global names
     filename: str = askopenfilename(
-        title="Open", 
-        defaultextension=".txt", 
-        filetypes=(("Text files", "*.txt"), ("All files", "*.*"))
+        title="Open",
+        defaultextension=".txt",
+        filetypes=(("Text files", "*.txt"), ("All files", "*.*")),
     )
     print("INFO: file dialog launched")
     file_label.config(text=f"File: {filename!s}")
@@ -52,7 +53,7 @@ def spin_in_bg() -> None:
 
     wheel_path: str = r"wheel_anim.gif"
     wheel = Image.open(wheel_path)
-    frames = wheel.n_frames # type: ignore
+    frames = wheel.n_frames  # type: ignore
 
     gif_label.config(image="")
 
@@ -61,7 +62,7 @@ def spin_in_bg() -> None:
         obj: PhotoImage = PhotoImage(file=wheel_path, format=f"gif -index {i}")
         photoimage_objects.append(obj)
 
-    def animation(current_frame: int=0) -> None:
+    def animation(current_frame: int = 0) -> None:
         global loop
         image: PhotoImage = photoimage_objects[current_frame]
 
@@ -72,7 +73,6 @@ def spin_in_bg() -> None:
             current_frame = 0
 
         loop = root.after(50, lambda: animation(current_frame))
-
 
     def stop_animation() -> None:
         root.after_cancel(loop)
@@ -138,6 +138,26 @@ def spin() -> None:
     thread.start()
 
 
+def show_about() -> None:
+    """Show the about window."""
+    root_1: Toplevel = Toplevel(master=root)
+    root_1.title("About this program")
+    root_1.geometry("300x175")
+
+    def github() -> None:
+        open_new("https://github.com/Gabriel-H189/AGSSpin")
+
+    about_label: Label = Label(
+        master=root_1,
+        text="AGSSpin v1.2\nBy Gabriel Alonso-Holt",
+        font=("calibri", 16, "bold"),
+    )
+    about_label.pack(pady=5)  # type: ignore
+
+    gh_button: Button = Button(master=root_1, text="view project page", command=github)
+    gh_button.pack(pady=7)  # type: ignore
+
+
 root: Tk = Tk()
 root.title("AGS Spin The Wheel")
 root.geometry("300x300+200+200")
@@ -183,7 +203,7 @@ print("INIT: spin button created")
 about: Button = Button(
     master=root,
     text="i",
-    command= lambda: showinfo(title="About", message="Program made by Gabriel Alonso-Holt")
+    command=show_about,
 )
 about.place(x=275, y=265)
 print("INIT: about button created")
