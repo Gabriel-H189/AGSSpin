@@ -4,8 +4,6 @@ By Gabriel Alonso-Holt.
 
 # main.pyw
 # -*- coding: utf-8 -*-
-from math import log
-
 from customtkinter import CTk, CTkButton, CTkLabel, CTkEntry, CTkToplevel
 from tkinter import Toplevel, Label, PhotoImage
 from tkinter.filedialog import askopenfilename
@@ -142,7 +140,11 @@ def spin_in_bg() -> None:
             logger.debug(f"{name_to_remove} removed from list")
             names.remove(name_to_remove)
 
+    else:
+        logger.info("winners not removed")
+
     root_1.destroy()
+    logger.info("spin window closed")
 
 
 def spin() -> None:
@@ -167,7 +169,7 @@ def show_about() -> None:
 
     about_label: CTkLabel = CTkLabel(
         master=root_1,
-        text="AGSSpin v1.2\nBy Gabriel Alonso-Holt",
+        text="AGSSpin v1.3\nBy Gabriel Alonso-Holt",
         font=("calibri", 16, "bold"),
     )
     about_label.pack(pady=5)  # type: ignore
