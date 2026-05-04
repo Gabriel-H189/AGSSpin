@@ -27,43 +27,45 @@ BrandingText "Gabriel Alonso-Holt"
 
 Section "Main program"
 
-    SetOutPath $INSTDIR
-    WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\AGSSpin" "DisplayName" "AGS Spin The Wheel"
-    WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\AGSSpin" "DisplayVersion" "1.2"
-    WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\AGSSpin" "Publisher" "Gabriel Alonso-Holt"
-    WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\AGSSpin" "DisplayIcon" "$INSTDIR\setup.ico"
-    WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\AGSSpin" "NoModify" 1
-    WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\AGSSpin" "NoRepair" 1
-    WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\AGSSpin" "UninstallString" "$INSTDIR\uninstall.exe"
+	SetOutPath $INSTDIR
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\AGSSpin" "DisplayName" "AGS Spin The Wheel"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\AGSSpin" "DisplayVersion" "1.2"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\AGSSpin" "Publisher" "Gabriel Alonso-Holt"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\AGSSpin" "DisplayIcon" "$INSTDIR\setup.ico"
+	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\AGSSpin" "NoModify" 1
+	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\AGSSpin" "NoRepair" 1
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\AGSSpin" "UninstallString" "$INSTDIR\uninstall.exe"
 
-    File AGSSpin.exe
-    File win.wav
-    File wheel.png
-    File spin.wav
-    File wheel_anim.gif
+	File AGSSpin.exe
+	File win.wav
+	File wheel.png
+	File spin.wav
+	File wheel_anim.gif
+	File license.txt
 
-    CreateShortcut "$SMPROGRAMS\AGS Spin The Wheel.lnk" "$INSTDIR\AGSSpin.exe"
-    WriteUninstaller $INSTDIR\uninstall.exe
+	CreateShortcut "$SMPROGRAMS\AGS Spin The Wheel.lnk" "$INSTDIR\AGSSpin.exe"
+	WriteUninstaller $INSTDIR\uninstall.exe
 
 SectionEnd
 
 Section "Desktop shortcut"
 
-    CreateShortcut "$DESKTOP\AGS Spin The Wheel.lnk" "$INSTDIR\AGSSpin.exe"
+	CreateShortcut "$DESKTOP\AGS Spin The Wheel.lnk" "$INSTDIR\AGSSpin.exe"
 
 SectionEnd
 
 Section "Uninstall"
 
-    DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\AGSSpin"
+	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\AGSSpin"
 
-    Delete $INSTDIR\win.wav
-    Delete $INSTDIR\wheel.png
-    Delete $INSTDIR\wheel_anim.gif
-    Delete $INSTDIR\spin.wav
-    Delete $INSTDIR\AGSSpin.exe
-    Delete $INSTDIR\uninstall.exe
+	Delete $INSTDIR\win.wav
+	Delete $INSTDIR\wheel.png
+	Delete $INSTDIR\wheel_anim.gif
+	Delete $INSTDIR\spin.wav
+	Delete $INSTDIR\AGSSpin.exe
+	Delete $INSTDIR\license.txt
+	Delete $INSTDIR\uninstall.exe
 
-    RMDir $INSTDIR
+	RMDir $INSTDIR
 
 SectionEnd

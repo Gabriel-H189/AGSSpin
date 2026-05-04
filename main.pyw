@@ -4,10 +4,12 @@ By Gabriel Alonso-Holt.
 
 # main.pyw
 # -*- coding: utf-8 -*-
+import sys
+
 from customtkinter import CTk, CTkButton, CTkLabel, CTkEntry, CTkToplevel
 from tkinter import Toplevel, Label, PhotoImage
 from tkinter.filedialog import askopenfilename
-from tkinter.messagebox import askyesno, showinfo
+from tkinter.messagebox import askyesno, showerror, showinfo
 from random import randint, sample, seed
 from threading import Thread
 from time import sleep, time
@@ -15,6 +17,11 @@ from webbrowser import open_new
 from winsound import PlaySound, SND_ASYNC
 from PIL import Image
 from loguru import logger
+from pathlib import Path
+
+if not Path("license.txt").exists():
+    showerror(title="Product Activation", message="License not found, quitting program")
+    sys.exit(0)
 
 logger.info("INIT: program started")
 names: list[str] = []
