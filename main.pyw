@@ -113,7 +113,9 @@ def spin_in_bg() -> None:
     logger.debug(f"spin_time = {spin_time:,}")
 
     # Seed and choose winner (s)
-    seed(randint(a=1, b=round(time())))
+    secret: int = randint(a=1, b=round(time()))
+    seed(secret)
+    del secret
     logger.info("seeded successfully")
     name_list: list[str] = sample(names, number_of_names)
     name: str = ", ".join(name_list)
