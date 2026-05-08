@@ -18,6 +18,13 @@ from winsound import PlaySound, SND_ASYNC
 from PIL import Image
 from loguru import logger
 from pathlib import Path
+from configparser import ConfigParser
+
+parser = ConfigParser()
+parser.read(r"spin_config.ini")
+
+config: list[str] = parser.sections()
+
 
 if not Path("license.txt").exists():
     showerror(title="Product Activation", message="License not found, quitting program")
@@ -30,12 +37,15 @@ names: list[str] = []
 def load_names() -> None:
     """Open and parse the text file of names."""
     global names
-    filename: str = askopenfilename(
-        title="Open",
-        defaultextension=".txt",
-        filetypes=(("Text files", "*.txt"), ("All files", "*.*")),
-    )
-    logger.info("file dialog launched")
+    filename: str = parser[config[0]]["file"]
+    if filename == "none":
+        filename = askopenfilename(
+            title="Open",
+            defaultextension=".txt",
+            filetypes=(("Text files", "*.txt"), ("All files", "*.*")),
+        )
+        logger.info("file dialog launched")
+
     file_label.configure(text=f"File: {filename!s}")
     logger.debug(f"filename = {filename!s}")
 
@@ -95,6 +105,8 @@ def spin_in_bg() -> None:
 
     def spin_sound() -> None:
         Thread(target=lambda: PlaySound(r"spin.wav", SND_ASYNC)).start()
+
+    # >>> TODO: finish implementing config file <<<
 
     # Get number of names and convert to int - default 1
     number_of_names: int | str = names_entry.get()
