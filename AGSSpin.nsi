@@ -11,11 +11,22 @@ BrandingText "Gabriel Alonso-Holt"
 
 !define MUI_WELCOMEPAGE_TEXT "Setup will guide you through the installation process of AGS Spin The Wheel.\n\nYou should close all other application before continuing.\n\nClick Next to continue and Cancel to exit the Setup Wizard."
 
+Function LaunchLink
+	ExecShell "" "$SMPROGRAMS\AGS Spin The Wheel.lnk"
+FunctionEnd
+
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_LICENSE "license.txt"
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
+
+!define MUI_FINISHPAGE_NOAUTOCLOSE
+!define MUI_FINISHPAGE_RUN
+!define MUI_FINISHPAGE_RUN_NOTCHECKED
+!define MUI_FINISHPAGE_RUN_TEXT "Start AGS Spin The Wheel"
+!define MUI_FINISHPAGE_RUN_FUNCTION "LaunchLink"
+
 !insertmacro MUI_PAGE_FINISH
 
 !insertmacro MUI_UNPAGE_WELCOME
@@ -42,6 +53,7 @@ Section "Main program"
 	File spin.wav
 	File wheel_anim.gif
 	File license.txt
+	File spin_config.ini
 
 	CreateShortcut "$SMPROGRAMS\AGS Spin The Wheel.lnk" "$INSTDIR\AGSSpin.exe"
 	WriteUninstaller $INSTDIR\uninstall.exe
@@ -64,6 +76,7 @@ Section "Uninstall"
 	Delete $INSTDIR\spin.wav
 	Delete $INSTDIR\AGSSpin.exe
 	Delete $INSTDIR\license.txt
+	Delete $INSTDIR\spin_config.ini
 	Delete $INSTDIR\uninstall.exe
 
 	RMDir $INSTDIR
