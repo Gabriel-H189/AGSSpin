@@ -82,7 +82,7 @@ def spin_in_bg() -> None:
     for i in range(0, frames):
         obj: PhotoImage = PhotoImage(file=wheel_path, format=f"gif -index {i}")
         photoimage_objects.append(obj)
-        logger.info(f"reading image {i}...")
+        logger.info(f"reading image {i:,}...")
 
     def animation(current_frame: int = 0) -> None:
         global loop
@@ -104,9 +104,9 @@ def spin_in_bg() -> None:
     logger.info("spinning wheel...")
 
     def spin_sound() -> None:
-        Thread(target=lambda: PlaySound(r"spin.wav", SND_ASYNC)).start()
-
-    # >>> TODO: finish implementing config file <<<
+        thread: Thread = Thread(target=lambda: PlaySound(r"spin.wav", SND_ASYNC))
+        logger.info("spin sound thread started")
+        thread.start()
 
     # Get number of names and convert to int - default 1
     number_of_names: int | str = names_entry.get()
@@ -158,7 +158,7 @@ def spin_in_bg() -> None:
 
     if sure:
         for name_to_remove in name_list:
-            logger.debug(f"{name_to_remove} removed from list")
+            logger.debug(f"{name_to_remove!s} removed from list")
             names.remove(name_to_remove)
 
     else:
@@ -180,8 +180,8 @@ def show_about() -> None:
     """Show the about window."""
     root_1: CTkToplevel = CTkToplevel(master=root)
     root_1.title("About this program")
-    root_1.geometry("300x175")
-    root_1.resizable(False, False)
+    root_1.geometry(geometry_string="300x175+300+300")
+    root_1.resizable(width=False, height=False)
     logger.info("about window created")
 
     def github() -> None:
@@ -227,16 +227,20 @@ number_names_label: CTkLabel = CTkLabel(master=root, text="Enter number of names
 number_names_label.pack()
 logger.info("INIT: number of names label created")
 
+no_names: str = parser[config[0]]["number_of_names"]
 names_entry: CTkEntry = CTkEntry(master=root)
 names_entry.pack()
+names_entry.insert(0, no_names)
 logger.info("INIT: names entry created")
 
 spin_time_label: CTkLabel = CTkLabel(master=root, text="Spin time (seconds): ")
 spin_time_label.pack(pady=2)
 logger.info("INIT: spin time label created")
 
+default_time: str = parser[config[0]]["spin_time"]
 time_entry: CTkEntry = CTkEntry(master=root)
 time_entry.pack()
+time_entry.insert(0, default_time)
 logger.info("INIT: time entry created")
 
 notify_label: CTkLabel = CTkLabel(master=root, text="No winners yet!")
